@@ -16,23 +16,23 @@
         <border type="none"/>
         <children/>
       </scrollpane>
-      <component id="99030" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="99030" class="javax.swing.JButton" binding="anadirBoton">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="-"/>
-        </properties>
-      </component>
-      <component id="139f4" class="javax.swing.JButton" binding="button2" default-binding="true">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="+"/>
         </properties>
       </component>
-      <component id="8164b" class="javax.swing.JButton" binding="editarButton" default-binding="true">
+      <component id="139f4" class="javax.swing.JButton" binding="eliminarBoton">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="-"/>
+        </properties>
+      </component>
+      <component id="8164b" class="javax.swing.JButton" binding="editarButon">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -40,7 +40,7 @@
           <text value="Editar"/>
         </properties>
       </component>
-      <component id="e689" class="javax.swing.JButton" binding="atrasButton" default-binding="true">
+      <component id="e689" class="javax.swing.JButton" binding="atrasButon">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

@@ -38,5 +38,13 @@ public class Principal extends JFrame {
                 frame.setVisible(true);
             }
         });
+        EmpleadosBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new VentanaEmpleados();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+            }
+        });
     }
 }

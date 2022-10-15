@@ -1,14 +1,13 @@
 package InterfazGrafica;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class VentanaPlatos extends JFrame{
     private JPanel PanelPlatos;
-    private JButton button1;
-    private JButton button2;
-    private JButton editarButton;
-    private JButton atrasButton;
+    private JButton anadirBoton;
+    private JButton eliminarBoton;
+    private JButton editarButon;
+    private JButton atrasButon;
 
     public VentanaPlatos() {
         setContentPane(PanelPlatos);
