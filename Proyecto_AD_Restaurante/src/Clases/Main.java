@@ -1,3 +1,5 @@
+package Clases;
+
 import InterfazGrafica.Principal;
 
 import javax.swing.*;
