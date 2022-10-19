@@ -25,6 +25,5 @@ public class CrearFichClientes {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
