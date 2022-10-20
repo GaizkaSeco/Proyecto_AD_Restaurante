@@ -4,10 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +22,6 @@ public class VentanaEmpleados extends JFrame {
 
     public VentanaEmpleados() {
         setContentPane(PanelEmpleados);
-        cargarDatos();
         modificarTabla();
 
         reloadBoton.addActionListener(new ActionListener() {
@@ -43,13 +39,19 @@ public class VentanaEmpleados extends JFrame {
                 frame.setVisible(true);
             }
         });
+        eliminarBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                eliminarEmpleado(id);
+            }
+        });
     }
 
     public void cargarDatos() {
         try {
             datos.clear();
-            File file = new File("Empleados.dat");
-            ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream(file));
+            ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream("Empleados.dat"));
             Empleado empleado = (Empleado) fileobj.readObject();
             while (empleado != null) {
                 datos.add(empleado);
@@ -64,16 +66,16 @@ public class VentanaEmpleados extends JFrame {
     }
 
     public void modificarTabla() {
-        String nombreColumnas[] = {"id", "Nombre", "Salario", "Fecha Contrato", "Telefono", "Email"};
+        cargarDatos();
+        String[] nombreColumnas = {"id", "Nombre", "Salario", "Fecha Contrato", "Telefono", "Email"};
         int cantidad = datos.size();
         String[][] d = new String[cantidad][6];
         try {
-            File file = new File("Empleados.dat");
-            ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream(file));
+            ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream("Empleados.dat"));
             Empleado empleado = (Empleado) fileobj.readObject();
             int i = 0;
             int j = 0;
-            while (empleado != null){
+            while (empleado != null) {
                 d[i][j] = String.valueOf(empleado.getId());
                 j++;
                 d[i][j] = empleado.getNombre();
@@ -96,5 +98,33 @@ public class VentanaEmpleados extends JFrame {
         } catch (ClassNotFoundException ew) {
             JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
         }
+    }
+
+    public void eliminarEmpleado(int id) {
+        cargarDatos();
+        List<Empleado> nuevos = new ArrayList<>();
+        for (Empleado dato : datos) {
+            if (dato.getId() != id) {
+                //preguntar si tiene sentido que no al eliminar no se cambien los id o es mejor que no alla ids vacios
+                nuevos.add(dato);
+            }
+        }
+
+        try {
+            ObjectOutputStream fileobj = new ObjectOutputStream(new FileOutputStream("Empleados.dat"));
+
+            for (Empleado dato : nuevos) {
+                fileobj.writeObject(dato);
+            }
+
+            fileobj.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Lo ha añadido");
+
+        modificarTabla();
     }
 }
