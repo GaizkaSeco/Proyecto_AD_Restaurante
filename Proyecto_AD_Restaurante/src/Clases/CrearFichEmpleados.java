@@ -15,7 +15,7 @@ public class CrearFichEmpleados {
             int telefono[] = {123456789, 857412563, 968524163, 645369874, 685214796, 645893214, 628549514, 654788932, 654127398, 665244615};
             String email[] = {"juan@gmail.com","javi@gmail.com","leire@gmail.com","gaizka@gmail.com","alex@gmail.com","egoitz@gmail.com","david@gmail.com","markel@gmail.com","ibai@gmail.com","pepe@gmail.com"};
 
-            for (int i = 0; i < nombres.length; i++) {
+            for (int i = 1; i < nombres.length; i++) {
                 Empleado empleado = new Empleado(i, nombres[i], salarios[i], fechaCon[i], telefono[i], email[i]);
                 fileobj.writeObject(empleado);
             }
