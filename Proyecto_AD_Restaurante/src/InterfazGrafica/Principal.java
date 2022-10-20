@@ -1,5 +1,7 @@
 package InterfazGrafica;
 
+import Clases.Hilo;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,7 @@ public class Principal extends JFrame {
                 JFrame frame = new VentanaAlmacen();
                 frame.setSize(500, 300);
                 frame.setVisible(true);
+                dispose();
             }
         });
         BotonSalir.addActionListener(new ActionListener() {
@@ -36,6 +39,7 @@ public class Principal extends JFrame {
                 JFrame frame = new VentanaPlatos();
                 frame.setSize(500, 300);
                 frame.setVisible(true);
+                dispose();
             }
         });
         EmpleadosBoton.addActionListener(new ActionListener() {
@@ -44,6 +48,7 @@ public class Principal extends JFrame {
                 JFrame frame = new VentanaEmpleados();
                 frame.setSize(500, 300);
                 frame.setVisible(true);
+                dispose();
             }
         });
         ClientesBoton.addActionListener(new ActionListener() {
@@ -52,6 +57,7 @@ public class Principal extends JFrame {
                 JFrame frame = new VentanaClientes();
                 frame.setSize(500, 300);
                 frame.setVisible(true);
+                dispose();
             }
         });
     }

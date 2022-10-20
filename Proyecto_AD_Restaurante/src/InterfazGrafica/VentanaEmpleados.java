@@ -27,7 +27,11 @@ public class VentanaEmpleados extends JFrame {
         reloadBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cargarDatos();
+                try {
+                    cargarDatos();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 modificarTabla();
             }
         });
@@ -48,25 +52,32 @@ public class VentanaEmpleados extends JFrame {
         });
     }
 
-    public void cargarDatos() {
+    public synchronized void cargarDatos() throws IOException {
         try {
+            File file = new File("Empleados.dat");
+            FileInputStream filein = new FileInputStream(file);
+            ObjectInputStream fileobj = new ObjectInputStream(filein);
+
             datos.clear();
-            ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream("Empleados.dat"));
             Empleado empleado = (Empleado) fileobj.readObject();
             while (empleado != null) {
                 datos.add(empleado);
-                empleado = null;
+                empleado = (Empleado) fileobj.readObject();
             }
             fileobj.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "No es posible leer los datos del los empleados.");
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
         }
     }
 
-    public void modificarTabla() {
-        cargarDatos();
+    public synchronized void modificarTabla() {
+        try {
+            cargarDatos();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String[] nombreColumnas = {"id", "Nombre", "Salario", "Fecha Contrato", "Telefono", "Email"};
         int cantidad = datos.size();
         String[][] d = new String[cantidad][6];
@@ -100,8 +111,12 @@ public class VentanaEmpleados extends JFrame {
         }
     }
 
-    public void eliminarEmpleado(int id) {
-        cargarDatos();
+    public synchronized void eliminarEmpleado(int id) {
+        try {
+            cargarDatos();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         List<Empleado> nuevos = new ArrayList<>();
         for (Empleado dato : datos) {
             if (dato.getId() != id) {
@@ -123,7 +138,6 @@ public class VentanaEmpleados extends JFrame {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Lo ha añadido");
 
         modificarTabla();
     }
