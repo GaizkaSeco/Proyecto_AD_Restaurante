@@ -27,11 +27,7 @@ public class VentanaEmpleados extends JFrame {
         reloadBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    cargarDatos();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                cargarDatos();
                 modificarTabla();
             }
         });
@@ -52,71 +48,43 @@ public class VentanaEmpleados extends JFrame {
         });
     }
 
-    public synchronized void cargarDatos() throws IOException {
+    public void cargarDatos() {
         try {
             File file = new File("Empleados.dat");
             FileInputStream filein = new FileInputStream(file);
             ObjectInputStream fileobj = new ObjectInputStream(filein);
 
             datos.clear();
-            Empleado empleado = (Empleado) fileobj.readObject();
-            while (empleado != null) {
+            Empleado empleado;
+            while ((empleado = (Empleado) fileobj.readObject()) != null) {
                 datos.add(empleado);
-                empleado = (Empleado) fileobj.readObject();
             }
             fileobj.close();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "No es posible leer los datos del los empleados.");
+            System.out.println("");
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
         }
     }
 
-    public synchronized void modificarTabla() {
-        try {
-            cargarDatos();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void modificarTabla() {
+        cargarDatos();
         String[] nombreColumnas = {"id", "Nombre", "Salario", "Fecha Contrato", "Telefono", "Email"};
         int cantidad = datos.size();
         String[][] d = new String[cantidad][6];
-        try {
-            ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream("Empleados.dat"));
-            Empleado empleado = (Empleado) fileobj.readObject();
-            int i = 0;
-            int j = 0;
-            while (empleado != null) {
-                d[i][j] = String.valueOf(empleado.getId());
-                j++;
-                d[i][j] = empleado.getNombre();
-                j++;
-                d[i][j] = empleado.getSalario().toString();
-                j++;
-                d[i][j] = empleado.getFechaCon();
-                j++;
-                d[i][j] = String.valueOf(empleado.getTelefono());
-                j++;
-                d[i][j] = empleado.getEmail();
-                j = 0;
-                i++;
-                empleado = null;
-            }
-            fileobj.close();
-            table1.setModel(new DefaultTableModel(d, nombreColumnas));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ew) {
-            JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
+        for (int i = 0; i < datos.size(); i++) {
+            d[i][0] = String.valueOf(datos.get(i).getId());
+            d[i][1] = String.valueOf(datos.get(i).getNombre());
+            d[i][2] = String.valueOf(datos.get(i).getSalario());
+            d[i][3] = String.valueOf(datos.get(i).getFechaCon());
+            d[i][4] = String.valueOf(datos.get(i).getTelefono());
+            d[i][5] = String.valueOf(datos.get(i).getEmail());
         }
+        table1.setModel(new DefaultTableModel(d, nombreColumnas));
     }
 
-    public synchronized void eliminarEmpleado(int id) {
-        try {
-            cargarDatos();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void eliminarEmpleado(int id) {
+        cargarDatos();
         List<Empleado> nuevos = new ArrayList<>();
         for (Empleado dato : datos) {
             if (dato.getId() != id) {
