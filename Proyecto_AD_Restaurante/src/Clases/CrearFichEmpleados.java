@@ -34,11 +34,11 @@ public class CrearFichEmpleados {
 
             fileobjin.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("No se ha encontrado el archivo");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("No se ha encontrado la clase");
         }
     }
 }

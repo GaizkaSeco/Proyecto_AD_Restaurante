@@ -34,26 +34,30 @@ public class CrearEmpleado extends JFrame {
         atrasButon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //boton atras todavia no hecho.
+                JFrame frame = new VentanaEmpleados();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
             }
         });
     }
 
     public void cargarDatos() {
         try {
-            datos.clear();
             File file = new File("Empleados.dat");
-            ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream(file));
-            Empleado empleado = (Empleado) fileobj.readObject();
-            while (empleado != null) {
+            FileInputStream filein = new FileInputStream(file);
+            ObjectInputStream fileobj = new ObjectInputStream(filein);
+
+            datos.clear();
+            Empleado empleado;
+            while ((empleado = (Empleado) fileobj.readObject()) != null) {
                 datos.add(empleado);
-                empleado = null;
             }
             fileobj.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
         }
     }
 
@@ -78,6 +82,11 @@ public class CrearEmpleado extends JFrame {
                 fileobj.writeObject(dato);
             }
             System.out.println("Lo ha añadido");
+
+            JFrame frame = new VentanaEmpleados();
+            frame.setSize(500, 300);
+            frame.setVisible(true);
+            dispose();
 
             fileobj.close();
         } catch (NumberFormatException e) {

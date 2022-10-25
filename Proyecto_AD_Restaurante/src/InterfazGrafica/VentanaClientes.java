@@ -6,10 +6,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VentanaClientes extends JFrame {
     private JPanel panelClientes;
@@ -19,40 +18,108 @@ public class VentanaClientes extends JFrame {
     private JButton editarBoton;
     private JButton reloadBoton;
     private JButton atrasBoton;
+    public List<Cliente> datos = new ArrayList<Cliente>();
 
     public VentanaClientes() {
         setContentPane(panelClientes);
+        modificarTabla();
         reloadBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombreColumnas[] = {"id", "Nombre", "Telefono", "Email"};
-                String datos[][] = new String[10][4];
-                try {
-                    File file = new File("Clientes.dat");
-                    ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream(file));
-                    Cliente cliente = (Cliente) fileobj.readObject();
-                    int i = 0;
-                    int j = 0;
-                    while (cliente != null){
-                        datos[i][j] = String.valueOf(cliente.getId());
-                        j++;
-                        datos[i][j] = cliente.getNombre();
-                        j++;
-                        datos[i][j] = String.valueOf(cliente.getTelefono());
-                        j++;
-                        datos[i][j] = cliente.getEmail();
-                        j = 0;
-                        i++;
-                        cliente = null;
-                    }
-                    fileobj.close();
-                    table1.setModel(new DefaultTableModel(datos, nombreColumnas));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (ClassNotFoundException ew) {
-                    ew.printStackTrace();
-                }
+                modificarTabla();
             }
         });
+        anadirBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new VentanaEmpleados();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        eliminarBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                eliminarCliente(id);
+            }
+        });
+        editarBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        atrasBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new Principal();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+    }
+
+    public void cargarDatos() {
+        try {
+            File file = new File("Clientes.dat");
+            FileInputStream filein = new FileInputStream(file);
+            ObjectInputStream fileobj = new ObjectInputStream(filein);
+
+            datos.clear();
+            Cliente cliente;
+            while ((cliente = (Cliente) fileobj.readObject()) != null) {
+                datos.add(cliente);
+            }
+            fileobj.close();
+        } catch (EOFException e) {
+            System.out.println("");
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Ha surgido un error inesperado.");
+        }
+    }
+
+    public void modificarTabla() {
+        cargarDatos();
+        String[] nombreColumnas = {"id", "Nombre", "Telefono", "Email"};
+        int cantidad = datos.size();
+        String[][] d = new String[cantidad][4];
+        for (int i = 0; i < datos.size(); i++) {
+            d[i][0] = String.valueOf(datos.get(i).getId());
+            d[i][1] = String.valueOf(datos.get(i).getNombre());
+            d[i][2] = String.valueOf(datos.get(i).getTelefono());
+            d[i][3] = String.valueOf(datos.get(i).getEmail());
+        }
+        table1.setModel(new DefaultTableModel(d, nombreColumnas));
+    }
+
+    public void eliminarCliente(int id) {
+        cargarDatos();
+        List<Cliente> nuevos = new ArrayList<>();
+        for (Cliente dato : datos) {
+            if (dato.getId() != id) {
+                //preguntar si tiene sentido que no al eliminar no se cambien los id o es mejor que no alla ids vacios
+                nuevos.add(dato);
+            }
+        }
+
+        try {
+            ObjectOutputStream fileobj = new ObjectOutputStream(new FileOutputStream("Clientes.dat"));
+
+            for (Cliente dato : nuevos) {
+                fileobj.writeObject(dato);
+            }
+            fileobj.close();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo de datos.");
+        } catch (IOException e) {
+            System.out.println("");
+        }
+
+        modificarTabla();
     }
 }

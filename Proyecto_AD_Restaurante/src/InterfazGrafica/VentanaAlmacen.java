@@ -1,18 +1,18 @@
 package InterfazGrafica;
 
 import Clases.Cliente;
+import Clases.Empleado;
 import Clases.Producto;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class VentanaAlmacen extends JFrame{
+public class VentanaAlmacen extends JFrame {
     private JPanel panelAlmacen;
     private JTable table1;
     private JButton atrasBoton;
@@ -20,38 +20,105 @@ public class VentanaAlmacen extends JFrame{
     private JButton eliminarBoton;
     private JButton editarButton;
     private JButton reloadBoton;
+    public List<Producto> datos = new ArrayList<Producto>();
 
     public VentanaAlmacen() {
         setContentPane(panelAlmacen);
+        modificarTabla();
         reloadBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombreColumnas[] = {"id", "Producto", "Cantidad"};
-                String datos[][] = new String[10][3];
-                try {
-                    File file = new File("Productos.dat");
-                    ObjectInputStream fileobj = new ObjectInputStream(new FileInputStream(file));
-                    Producto producto = (Producto) fileobj.readObject();
-                    int i = 0;
-                    int j = 0;
-                    while (producto != null){
-                        datos[i][j] = String.valueOf(producto.getId());
-                        j++;
-                        datos[i][j] = producto.getProducto();
-                        j++;
-                        datos[i][j] = String.valueOf(producto.getCantidad());
-                        j = 0;
-                        i++;
-                        producto = null;
-                    }
-                    fileobj.close();
-                    table1.setModel(new DefaultTableModel(datos, nombreColumnas));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (ClassNotFoundException ew) {
-                    ew.printStackTrace();
-                }
+                modificarTabla();
             }
         });
+        anadirBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new VentanaEmpleados();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        eliminarBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                eliminarProducto(id);
+            }
+        });
+        editarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        atrasBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new Principal();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+    }
+
+    public void cargarDatos() {
+        try {
+            File file = new File("Productos.dat");
+            FileInputStream filein = new FileInputStream(file);
+            ObjectInputStream fileobj = new ObjectInputStream(filein);
+
+            datos.clear();
+            Producto producto;
+            while ((producto = (Producto) fileobj.readObject()) != null) {
+                datos.add(producto);
+            }
+            fileobj.close();
+        } catch (IOException e) {
+            System.out.println("");
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
+        }
+    }
+
+    public void modificarTabla() {
+        cargarDatos();
+        String[] nombreColumnas = {"id", "Nombre", "Cantidad"};
+        int cantidad = datos.size();
+        String[][] d = new String[cantidad][3];
+        for (int i = 0; i < datos.size(); i++) {
+            d[i][0] = String.valueOf(datos.get(i).getId());
+            d[i][1] = String.valueOf(datos.get(i).getProducto());
+            d[i][2] = String.valueOf(datos.get(i).getCantidad());
+        }
+        table1.setModel(new DefaultTableModel(d, nombreColumnas));
+    }
+
+    public void eliminarProducto(int id) {
+        cargarDatos();
+        List<Producto> nuevos = new ArrayList<>();
+        for (Producto dato : datos) {
+            if (dato.getId() != id) {
+                //preguntar si tiene sentido que no al eliminar no se cambien los id o es mejor que no alla ids vacios
+                nuevos.add(dato);
+            }
+        }
+
+        try {
+            ObjectOutputStream fileobj = new ObjectOutputStream(new FileOutputStream("Productos.dat"));
+
+            for (Producto dato : nuevos) {
+                fileobj.writeObject(dato);
+            }
+            fileobj.close();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo de datos.");
+        } catch (IOException e) {
+            System.out.println("");
+        }
+
+        modificarTabla();
     }
 }

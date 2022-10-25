@@ -27,7 +27,6 @@ public class VentanaEmpleados extends JFrame {
         reloadBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cargarDatos();
                 modificarTabla();
             }
         });
@@ -37,6 +36,7 @@ public class VentanaEmpleados extends JFrame {
                 JFrame frame = new CrearEmpleado();
                 frame.setSize(500, 300);
                 frame.setVisible(true);
+                dispose();
             }
         });
         eliminarBoton.addActionListener(new ActionListener() {
@@ -44,6 +44,15 @@ public class VentanaEmpleados extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 eliminarEmpleado(id);
+            }
+        });
+        atrasBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new Principal();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
             }
         });
     }
@@ -102,9 +111,9 @@ public class VentanaEmpleados extends JFrame {
 
             fileobj.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo de datos.");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("");
         }
 
         modificarTabla();
