@@ -32,7 +32,8 @@ public class VentanaClientes extends JFrame {
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new VentanaEmpleados();
+                cargarDatos();
+                JFrame frame = new CrearCliente(datos);
                 frame.setSize(500, 300);
                 frame.setVisible(true);
                 dispose();

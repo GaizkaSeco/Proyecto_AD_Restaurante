@@ -33,7 +33,8 @@ public class VentanaEmpleados extends JFrame {
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new CrearEmpleado();
+                cargarDatos();
+                JFrame frame = new CrearEmpleado(datos);
                 frame.setSize(500, 300);
                 frame.setVisible(true);
                 dispose();
@@ -50,6 +51,17 @@ public class VentanaEmpleados extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = new Principal();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        editarBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                cargarDatos();
+                JFrame frame = new EditarEmpleado(id, datos);
                 frame.setSize(500, 300);
                 frame.setVisible(true);
                 dispose();

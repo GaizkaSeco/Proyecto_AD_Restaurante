@@ -21,13 +21,12 @@ public class CrearEmpleado extends JFrame {
     public List<Empleado> datos = new ArrayList<Empleado>();
 
 
-    public CrearEmpleado() {
+    public CrearEmpleado(List<Empleado> d) {
+        this.datos = d;
         setContentPane(panelEmpleados);
-        cargarDatos();
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cargarDatos();
                 anadirEmpleado();
             }
         });
@@ -42,30 +41,10 @@ public class CrearEmpleado extends JFrame {
         });
     }
 
-    public void cargarDatos() {
-        try {
-            File file = new File("Empleados.dat");
-            FileInputStream filein = new FileInputStream(file);
-            ObjectInputStream fileobj = new ObjectInputStream(filein);
-
-            datos.clear();
-            Empleado empleado;
-            while ((empleado = (Empleado) fileobj.readObject()) != null) {
-                datos.add(empleado);
-            }
-            fileobj.close();
-        } catch (IOException e) {
-            System.out.println("");
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Ha surgido un error al intentar acceder al los datos.");
-        }
-    }
-
     public void anadirEmpleado() {
         try {
             String nombre = nombreField.getText();
             Double salario = Double.parseDouble(salarioField.getText());
-            System.out.println("salario validado");
             String fecha = fechaField.getText();
             int telefono = Integer.parseInt(telefonoField.getText());
             String email = emailField.getText();
@@ -81,20 +60,21 @@ public class CrearEmpleado extends JFrame {
             for (Empleado dato : datos) {
                 fileobj.writeObject(dato);
             }
-            System.out.println("Lo ha añadido");
+
+            JOptionPane.showMessageDialog(null, "El empleado se ha añadido corectamente.");
+
+            fileobj.close();
 
             JFrame frame = new VentanaEmpleados();
             frame.setSize(500, 300);
             frame.setVisible(true);
             dispose();
-
-            fileobj.close();
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Porfavor introduce numeros y no letras.");
+            JOptionPane.showMessageDialog(null, "Introduce valores correctos o comprueba el numero de telefono.");
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "No se a podido encontrar en archivo.");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("");
         }
     }
 }
