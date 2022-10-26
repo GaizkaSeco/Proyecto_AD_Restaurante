@@ -8,12 +8,12 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="c731e" class="javax.swing.JButton" binding="ReservasBoton">
+      <component id="c731e" class="javax.swing.JButton" binding="generarBoton">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="VER RESERVAS"/>
+          <text value="GENERAR MENU"/>
         </properties>
       </component>
       <vspacer id="574f6">

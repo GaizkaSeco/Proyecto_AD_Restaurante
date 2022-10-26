@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Principal extends JFrame {
-    private JButton ReservasBoton;
+    private JButton generarBoton;
     private JButton PlatosBoton;
     private JButton AlmacenBoton;
     private JButton ClientesBoton;
