@@ -49,7 +49,12 @@ public class VentanaClientes extends JFrame {
         editarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                cargarDatos();
+                JFrame frame = new EditarCliente(id, datos);
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
             }
         });
         atrasBoton.addActionListener(new ActionListener() {
