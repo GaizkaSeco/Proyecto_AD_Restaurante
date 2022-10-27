@@ -33,20 +33,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/omega/Desktop/Proyecto/Proyecto_AD_Restaurante&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main (1)">
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Clases.Main" />
-      <module name="Proyecto_AD_Restaurante" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Clases.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Clases.Main" />
       <module name="Proyecto_AD_Restaurante" />
@@ -86,6 +73,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Clases.Main" />
+      <module name="Proyecto_AD_Restaurante" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Clases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Clases.Main" />
       <module name="Proyecto_AD_Restaurante" />
@@ -101,11 +101,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (3)" />
         <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.Main (4)" />
+        <item itemvalue="Application.Main (5)" />
       </list>
     </recent_temporary>
   </component>
@@ -120,6 +120,8 @@
       <workItem from="1666284195516" duration="6863000" />
       <workItem from="1666295182284" duration="49000" />
       <workItem from="1666636250455" duration="1603000" />
+      <workItem from="1666888675458" duration="938000" />
+      <workItem from="1666892416215" duration="1522000" />
     </task>
     <servers />
   </component>
