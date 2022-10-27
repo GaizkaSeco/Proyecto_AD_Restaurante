@@ -16,9 +16,8 @@ public class EditarProducto extends JFrame {
     private JButton editarBoton;
     private JButton atrasBoton;
     private JPanel panelEditarProducto;
-    List<Producto> datos = new ArrayList<Producto>();
 
-    public EditarProducto(List<Producto> d, int id) {
+    public EditarProducto(List<Producto> datos, int id) {
         setContentPane(panelEditarProducto);
         for (Producto dato : datos) {
             if (dato.getId() == id) {
