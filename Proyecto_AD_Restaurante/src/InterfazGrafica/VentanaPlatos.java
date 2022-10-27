@@ -25,14 +25,22 @@ public class VentanaPlatos extends JFrame{
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                cargarDatos();
+                JFrame frame = new CrearPlato(datos);
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
             }
         });
         eliminarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
-                eliminarPlato(id);
+                if (table1.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Para eliminar deves seleccionar en la tabla.");
+                } else {
+                    int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                    eliminarPlato(id);
+                }
             }
         });
         atrasBoton.addActionListener(new ActionListener() {

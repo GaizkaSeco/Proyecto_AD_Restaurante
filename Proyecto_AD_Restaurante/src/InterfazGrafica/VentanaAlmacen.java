@@ -43,14 +43,27 @@ public class VentanaAlmacen extends JFrame {
         eliminarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
-                eliminarProducto(id);
+                if (table1.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Para eliminar deves seleccionar en la tabla.");
+                } else {
+                    int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                    eliminarProducto(id);
+                }
             }
         });
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (table1.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Para editar deves seleccionar en la tabla.");
+                } else {
+                    int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                    cargarDatos();
+                    JFrame frame = new EditarProducto(datos, id);
+                    frame.setSize(500, 300);
+                    frame.setVisible(true);
+                    dispose();
+                }
             }
         });
         atrasBoton.addActionListener(new ActionListener() {
@@ -101,7 +114,6 @@ public class VentanaAlmacen extends JFrame {
         List<Producto> nuevos = new ArrayList<>();
         for (Producto dato : datos) {
             if (dato.getId() != id) {
-                //preguntar si tiene sentido que no al eliminar no se cambien los id o es mejor que no alla ids vacios
                 nuevos.add(dato);
             }
         }

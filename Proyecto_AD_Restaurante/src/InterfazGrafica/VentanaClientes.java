@@ -42,19 +42,27 @@ public class VentanaClientes extends JFrame {
         eliminarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
-                eliminarCliente(id);
+                if (table1.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Para eliminar deves seleccionar en la tabla.");
+                } else {
+                    int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                    eliminarCliente(id);
+                }
             }
         });
         editarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
-                cargarDatos();
-                JFrame frame = new EditarCliente(id, datos);
-                frame.setSize(500, 300);
-                frame.setVisible(true);
-                dispose();
+                if (table1.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Para editar deves seleccionar en la tabla.");
+                } else {
+                    int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                    cargarDatos();
+                    JFrame frame = new EditarCliente(id, datos);
+                    frame.setSize(500, 300);
+                    frame.setVisible(true);
+                    dispose();
+                }
             }
         });
         atrasBoton.addActionListener(new ActionListener() {
@@ -108,7 +116,6 @@ public class VentanaClientes extends JFrame {
         List<Cliente> nuevos = new ArrayList<>();
         for (Cliente dato : datos) {
             if (dato.getId() != id) {
-                //preguntar si tiene sentido que no al eliminar no se cambien los id o es mejor que no alla ids vacios
                 nuevos.add(dato);
             }
         }

@@ -30,30 +30,38 @@ public class EditarCliente extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    for (Cliente dato : datos) {
-                        if (dato.getId() == id) {
-                            dato.setNombre(nombreField.getText());
-                            dato.setTelefono(Integer.parseInt(telefonoField.getText()));
-                            dato.setEmail(emailField.getText());
+                    String nombre = nombreField.getText();
+                    int telefono = Integer.parseInt(telefonoField.getText());
+                    String email = emailField.getText();
+
+                    if (nombre == null || email == null || String.valueOf(telefono).length() == 9) {
+                        JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
+                    } else {
+                        for (Cliente dato : datos) {
+                            if (dato.getId() == id) {
+                                dato.setNombre(nombre);
+                                dato.setTelefono(telefono);
+                                dato.setEmail(email);
+                            }
                         }
+
+                        File file = new File("Clientes.dat");
+                        FileOutputStream fileo = new FileOutputStream(file);
+                        ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
+
+                        for (Cliente dato : datos) {
+                            fileobj.writeObject(dato);
+                        }
+
+                        fileobj.close();
+
+                        JOptionPane.showMessageDialog(null, "Se ha editado corectamente.");
+
+                        JFrame frame = new VentanaClientes();
+                        frame.setSize(500, 300);
+                        frame.setVisible(true);
+                        dispose();
                     }
-
-                    File file = new File("Clientes.dat");
-                    FileOutputStream fileo = new FileOutputStream(file);
-                    ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
-
-                    for (Cliente dato : datos) {
-                        fileobj.writeObject(dato);
-                    }
-
-                    fileobj.close();
-
-                    JOptionPane.showMessageDialog(null, "Se ha editado corectamente.");
-
-                    JFrame frame = new VentanaClientes();
-                    frame.setSize(500, 300);
-                    frame.setVisible(true);
-                    dispose();
                 } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(null, "No se ha podido encontrar en archivo.");
                 } catch (IOException ex) {

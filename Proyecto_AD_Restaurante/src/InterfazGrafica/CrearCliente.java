@@ -44,26 +44,29 @@ public class CrearCliente extends JFrame {
             int telefono = Integer.parseInt(telefonoField.getText());
             String email = emailField.getText();
 
-            int id = datos.get(datos.size() - 1).getId() + 1;
+            if (nombre == null || email == null || String.valueOf(telefono).length() != 9) {
+                JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
+            } else {
+                int id = datos.get(datos.size() - 1).getId() + 1;
 
-            datos.add(new Cliente(id,  nombre, telefono, email));
+                datos.add(new Cliente(id, nombre, telefono, email));
 
-            File file = new File("Clientes.dat");
-            FileOutputStream fileo = new FileOutputStream(file);
-            ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
+                File file = new File("Clientes.dat");
+                FileOutputStream fileo = new FileOutputStream(file);
+                ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
-            for (Cliente dato : datos) {
-                fileobj.writeObject(dato);
+                for (Cliente dato : datos) {
+                    fileobj.writeObject(dato);
+                }
+
+                JOptionPane.showMessageDialog(null, "El cliente se ha añadido corectamente.");
+
+                fileobj.close();
+                JFrame frame = new VentanaClientes();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
             }
-
-            JOptionPane.showMessageDialog(null, "El cliente se ha añadido corectamente.");
-
-            fileobj.close();
-
-            JFrame frame = new VentanaClientes();
-            frame.setSize(500, 300);
-            frame.setVisible(true);
-            dispose();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Introduce valores correctos o comprueba el numero de telefono.");
         } catch (FileNotFoundException e) {

@@ -33,32 +33,42 @@ public class EditarEmpleado extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    for (Empleado dato : datos) {
-                        if (dato.getId() == id) {
-                            dato.setNombre(nombreField.getText());
-                            dato.setSalario(Double.parseDouble(salarioField.getText()));
-                            dato.setFechaCon(fechaField.getText());
-                            dato.setTelefono(Integer.parseInt(telefonoField.getText()));
-                            dato.setEmail(emailField.getText());
+                    String nombre = nombreField.getText();
+                    Double salario = Double.parseDouble(salarioField.getText());
+                    String fecha = fechaField.getText();
+                    int telefono = Integer.parseInt(telefonoField.getText());
+                    String email = emailField.getText();
+
+                    if (nombre == null || fecha == null || email == null || String.valueOf(telefono).length() != 9){
+                        JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
+                    } else{
+                        for (Empleado dato : datos) {
+                            if (dato.getId() == id) {
+                                dato.setNombre(nombre);
+                                dato.setSalario(salario);
+                                dato.setFechaCon(fecha);
+                                dato.setTelefono(telefono);
+                                dato.setEmail(email);
+                            }
                         }
+
+                        File file = new File("Empleados.dat");
+                        FileOutputStream fileo = new FileOutputStream(file);
+                        ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
+
+                        for (Empleado dato : datos) {
+                            fileobj.writeObject(dato);
+                        }
+
+                        fileobj.close();
+
+                        JOptionPane.showMessageDialog(null, "Se ha editado corectamente.");
+
+                        JFrame frame = new VentanaEmpleados();
+                        frame.setSize(500, 300);
+                        frame.setVisible(true);
+                        dispose();
                     }
-
-                    File file = new File("Empleados.dat");
-                    FileOutputStream fileo = new FileOutputStream(file);
-                    ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
-
-                    for (Empleado dato : datos) {
-                        fileobj.writeObject(dato);
-                    }
-
-                    fileobj.close();
-
-                    JOptionPane.showMessageDialog(null, "Se ha editado corectamente.");
-
-                    JFrame frame = new VentanaEmpleados();
-                    frame.setSize(500, 300);
-                    frame.setVisible(true);
-                    dispose();
                 } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(null, "No se a podido encontrar en archivo.");
                 } catch (IOException ex) {

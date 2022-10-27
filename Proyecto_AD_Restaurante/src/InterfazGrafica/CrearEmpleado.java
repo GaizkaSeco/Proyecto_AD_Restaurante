@@ -51,24 +51,28 @@ public class CrearEmpleado extends JFrame {
 
             int id = datos.get(datos.size() - 1).getId() + 1;
 
-            datos.add(new Empleado(id,  nombre, salario, fecha, telefono, email));
+            if (nombre == null || fecha == null || email == null || String.valueOf(telefono).length() != 9) {
+                JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
+            } else {
+                datos.add(new Empleado(id, nombre, salario, fecha, telefono, email));
 
-            File file = new File("Empleados.dat");
-            FileOutputStream fileo = new FileOutputStream(file);
-            ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
+                File file = new File("Empleados.dat");
+                FileOutputStream fileo = new FileOutputStream(file);
+                ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
-            for (Empleado dato : datos) {
-                fileobj.writeObject(dato);
+                for (Empleado dato : datos) {
+                    fileobj.writeObject(dato);
+                }
+
+                JOptionPane.showMessageDialog(null, "El empleado se ha añadido corectamente.");
+
+                fileobj.close();
+
+                JFrame frame = new VentanaEmpleados();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
             }
-
-            JOptionPane.showMessageDialog(null, "El empleado se ha añadido corectamente.");
-
-            fileobj.close();
-
-            JFrame frame = new VentanaEmpleados();
-            frame.setSize(500, 300);
-            frame.setVisible(true);
-            dispose();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Introduce valores correctos o comprueba el numero de telefono.");
         } catch (FileNotFoundException e) {
