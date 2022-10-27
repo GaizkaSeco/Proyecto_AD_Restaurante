@@ -51,7 +51,7 @@ public class CrearPlato extends JFrame {
             int categoria = comboBox1.getSelectedIndex() + 1;
             int id = datos.get(datos.size() - 1).getId() + 1;
 
-            if (plato == null || descripcion == null) {
+            if (plato.trim().equals("") || descripcion.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
                 datos.add(new Plato(id, plato, descripcion, precio, categoria));

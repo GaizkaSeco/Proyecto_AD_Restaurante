@@ -33,7 +33,7 @@ public class EditarProducto extends JFrame {
                     String producto = productoField.getText();
                     int cantidad = Integer.parseInt(cantidadField.getText());
 
-                    if (producto == null) {
+                    if (producto.trim().equals("")) {
                         JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
                     } else {
                         for (Producto dato : datos) {

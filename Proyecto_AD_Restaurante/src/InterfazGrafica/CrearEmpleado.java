@@ -51,7 +51,7 @@ public class CrearEmpleado extends JFrame {
 
             int id = datos.get(datos.size() - 1).getId() + 1;
 
-            if (nombre == null || fecha == null || email == null || String.valueOf(telefono).length() != 9) {
+            if (nombre.trim().equals("") || fecha.trim().equals("") || email.trim().equals("") || String.valueOf(telefono).length() != 9) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
                 datos.add(new Empleado(id, nombre, salario, fecha, telefono, email));

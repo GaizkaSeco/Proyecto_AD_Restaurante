@@ -44,7 +44,7 @@ public class CrearCliente extends JFrame {
             int telefono = Integer.parseInt(telefonoField.getText());
             String email = emailField.getText();
 
-            if (nombre == null || email == null || String.valueOf(telefono).length() != 9) {
+            if (nombre.trim().equals("") || email.trim().equals("") || String.valueOf(telefono).length() != 9) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
                 int id = datos.get(datos.size() - 1).getId() + 1;

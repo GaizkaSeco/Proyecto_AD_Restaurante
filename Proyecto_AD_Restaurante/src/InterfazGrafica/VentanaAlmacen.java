@@ -34,7 +34,8 @@ public class VentanaAlmacen extends JFrame {
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new VentanaEmpleados();
+                cargarDatos();
+                JFrame frame = new AnadirProducto(datos);
                 frame.setSize(500, 300);
                 frame.setVisible(true);
                 dispose();

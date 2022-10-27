@@ -44,26 +44,29 @@ public class AnadirProducto extends JFrame {
             String producto = producotField.getText();
             int cantidad = Integer.parseInt(cantidadField.getText());
 
-            int id = datos.get(datos.size() - 1).getId() + 1;
+            if (producto.trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
+            }else {
+                int id = datos.get(datos.size() - 1).getId() + 1;
 
-            datos.add(new Producto(id,  producto, cantidad));
+                datos.add(new Producto(id, producto, cantidad));
 
-            File file = new File("Productos.dat");
-            FileOutputStream fileo = new FileOutputStream(file);
-            ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
+                File file = new File("Productos.dat");
+                FileOutputStream fileo = new FileOutputStream(file);
+                ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
-            for (Producto dato : datos) {
-                fileobj.writeObject(dato);
+                for (Producto dato : datos) {
+                    fileobj.writeObject(dato);
+                }
+
+                JOptionPane.showMessageDialog(null, "El producto se ha añadido corectamente.");
+
+                fileobj.close();
+                JFrame frame = new VentanaAlmacen();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
             }
-
-            JOptionPane.showMessageDialog(null, "El producto se ha añadido corectamente.");
-
-            fileobj.close();
-
-            JFrame frame = new VentanaAlmacen();
-            frame.setSize(500, 300);
-            frame.setVisible(true);
-            dispose();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Introduce valores correctos o comprueba el numero de telefono.");
         } catch (FileNotFoundException e) {

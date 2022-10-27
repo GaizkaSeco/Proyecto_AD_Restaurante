@@ -39,7 +39,7 @@ public class EditarEmpleado extends JFrame {
                     int telefono = Integer.parseInt(telefonoField.getText());
                     String email = emailField.getText();
 
-                    if (nombre == null || fecha == null || email == null || String.valueOf(telefono).length() != 9){
+                    if (nombre.trim().equals("") || fecha.trim().equals("") || email.trim().equals("") || String.valueOf(telefono).length() != 9){
                         JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
                     } else{
                         for (Empleado dato : datos) {
