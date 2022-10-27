@@ -58,5 +58,14 @@ public class Principal extends JFrame {
                 dispose();
             }
         });
+        generarBoton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new MenuGenerado();
+                frame.setSize(500, 300);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
