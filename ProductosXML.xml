@@ -1,0 +1,57 @@
+<ListaProductos>
+  <DatosProducto>
+    <id>0</id>
+    <producto>Tomate</producto>
+    <cantidad>100</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>1</id>
+    <producto>Lechuga</producto>
+    <cantidad>20</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>2</id>
+    <producto>Carne de vaca</producto>
+    <cantidad>50</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>3</id>
+    <producto>Pez blanco</producto>
+    <cantidad>50</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>4</id>
+    <producto>Huevos</producto>
+    <cantidad>150</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>5</id>
+    <producto>Harina</producto>
+    <cantidad>100</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>6</id>
+    <producto>Centollo</producto>
+    <cantidad>50</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>7</id>
+    <producto>Zanahoria</producto>
+    <cantidad>100</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>8</id>
+    <producto>Patatas</producto>
+    <cantidad>100</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>9</id>
+    <producto>Aceite</producto>
+    <cantidad>250</cantidad>
+  </DatosProducto>
+  <DatosProducto>
+    <id>10</id>
+    <producto>Tomate</producto>
+    <cantidad>19</cantidad>
+  </DatosProducto>
+</ListaProductos>
