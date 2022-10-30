@@ -17,6 +17,13 @@ public class Plato implements Serializable {
         this.categoria = categoria;
     }
 
+    public Plato() {
+    }
+
+    public Plato(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }
