@@ -3,7 +3,7 @@
     <id>1</id>
     <nombre>Leire</nombre>
     <salario>4000.0</salario>
-    <fechaCon>10/10/2021</fechaCon>
+    <fechaCon>10/10/2020</fechaCon>
     <telefono>123456789</telefono>
     <email>leire@gmail.com</email>
   </DatosEmpleado>
@@ -78,13 +78,5 @@
     <fechaCon>10/10/2020</fechaCon>
     <telefono>665244615</telefono>
     <email>pepe@gmail.com</email>
-  </DatosEmpleado>
-  <DatosEmpleado>
-    <id>11</id>
-    <nombre>Mariano</nombre>
-    <salario>950.0</salario>
-    <fechaCon>12/6/2022</fechaCon>
-    <telefono>123456798</telefono>
-    <email>mariano@gmail.com</email>
   </DatosEmpleado>
 </ListaEmpleados>

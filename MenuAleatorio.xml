@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<MenuAleatorio>
+<   MenuAleatorio>
     <plato>
         <id>1</id>
         <plato>Macarrones con tomate</plato>
@@ -7,9 +7,9 @@
         <categoria>1</categoria>
     </plato>
     <plato>
-        <id>2</id>
-        <plato>Pechugas de pollo</plato>
-        <descripcion>Pechuga de pollo rebozada</descripcion>
+        <id>3</id>
+        <plato>Lentejas</plato>
+        <descripcion>Lentejas caseras</descripcion>
         <categoria>2</categoria>
     </plato>
     <plato>

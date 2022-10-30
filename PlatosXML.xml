@@ -1,5 +1,12 @@
 <ListaPlatos>
   <DatosPlato>
+    <id>1</id>
+    <nombre>Macarrones con tomate</nombre>
+    <descripcion>Ricos macarrones con tomate caseros</descripcion>
+    <precio>4.95</precio>
+    <categoria>1</categoria>
+  </DatosPlato>
+  <DatosPlato>
     <id>2</id>
     <nombre>Pechugas de pollo</nombre>
     <descripcion>Pechuga de pollo rebozada</descripcion>
@@ -33,12 +40,5 @@
     <descripcion>Tarta de queso casera</descripcion>
     <precio>9.99</precio>
     <categoria>3</categoria>
-  </DatosPlato>
-  <DatosPlato>
-    <id>7</id>
-    <nombre>Pizza</nombre>
-    <descripcion>Pizza de jamon york y queso</descripcion>
-    <precio>20.0</precio>
-    <categoria>1</categoria>
   </DatosPlato>
 </ListaPlatos>

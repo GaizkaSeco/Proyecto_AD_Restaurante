@@ -49,9 +49,4 @@
     <producto>Aceite</producto>
     <cantidad>250</cantidad>
   </DatosProducto>
-  <DatosProducto>
-    <id>10</id>
-    <producto>Tomate</producto>
-    <cantidad>19</cantidad>
-  </DatosProducto>
 </ListaProductos>

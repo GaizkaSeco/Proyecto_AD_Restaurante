@@ -1,5 +1,17 @@
 <ListaClientes>
   <DatosCliente>
+    <id>0</id>
+    <nombre>Juan</nombre>
+    <telefono>526987431</telefono>
+    <email>juan@gmail.com</email>
+  </DatosCliente>
+  <DatosCliente>
+    <id>1</id>
+    <nombre>Jose</nombre>
+    <telefono>659478213</telefono>
+    <email>jose@gmail.com</email>
+  </DatosCliente>
+  <DatosCliente>
     <id>2</id>
     <nombre>Mario</nombre>
     <telefono>654987321</telefono>
@@ -10,6 +22,18 @@
     <nombre>Maria</nombre>
     <telefono>632154879</telefono>
     <email>maria@gmail.com</email>
+  </DatosCliente>
+  <DatosCliente>
+    <id>4</id>
+    <nombre>Aitor</nombre>
+    <telefono>614239875</telefono>
+    <email>aitor@gmail.com</email>
+  </DatosCliente>
+  <DatosCliente>
+    <id>5</id>
+    <nombre>Hector</nombre>
+    <telefono>664335980</telefono>
+    <email>hector@gmail.com</email>
   </DatosCliente>
   <DatosCliente>
     <id>6</id>
@@ -32,13 +56,7 @@
   <DatosCliente>
     <id>9</id>
     <nombre>Maite</nombre>
-    <telefono>124365879</telefono>
+    <telefono>678954123</telefono>
     <email>maite@gmail.com</email>
-  </DatosCliente>
-  <DatosCliente>
-    <id>10</id>
-    <nombre>Jaizka</nombre>
-    <telefono>123456789</telefono>
-    <email>jaizka@gmail.com</email>
   </DatosCliente>
 </ListaClientes>

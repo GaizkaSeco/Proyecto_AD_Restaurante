@@ -45,7 +45,7 @@ public class VentanaAlmacen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (table1.getSelectedRow() == -1) {
-                    JOptionPane.showMessageDialog(null, "Para eliminar deves seleccionar en la tabla.");
+                    JOptionPane.showMessageDialog(null, "Para eliminar debes seleccionar en la tabla.");
                 } else {
                     int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                     eliminarProducto(id);
@@ -56,7 +56,7 @@ public class VentanaAlmacen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (table1.getSelectedRow() == -1) {
-                    JOptionPane.showMessageDialog(null, "Para editar deves seleccionar en la tabla.");
+                    JOptionPane.showMessageDialog(null, "Para editar debes seleccionar en la tabla.");
                 } else {
                     int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                     cargarDatos();
