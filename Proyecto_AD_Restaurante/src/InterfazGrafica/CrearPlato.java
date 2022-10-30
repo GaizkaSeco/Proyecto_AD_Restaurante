@@ -49,11 +49,16 @@ public class CrearPlato extends JFrame {
             String descripcion = descripcionField.getText();
             int precio = Integer.parseInt(costeField.getText());
             int categoria = comboBox1.getSelectedIndex() + 1;
-            int id = datos.get(datos.size() - 1).getId() + 1;
 
             if (plato.trim().equals("") || descripcion.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
+                int id;
+                if (datos.size() == 0) {
+                    id = 1;
+                } else {
+                    id = datos.get(datos.size() - 1).getId() + 1;
+                }
                 datos.add(new Plato(id, plato, descripcion, precio, categoria));
 
                 File file = new File("Platos.dat");

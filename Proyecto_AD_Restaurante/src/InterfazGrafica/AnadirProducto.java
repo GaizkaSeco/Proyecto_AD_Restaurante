@@ -47,8 +47,12 @@ public class AnadirProducto extends JFrame {
             if (producto.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             }else {
-                int id = datos.get(datos.size() - 1).getId() + 1;
-
+                int id;
+                if (datos.size() == 0) {
+                    id = 1;
+                } else {
+                    id = datos.get(datos.size() - 1).getId() + 1;
+                }
                 datos.add(new Producto(id, producto, cantidad));
 
                 File file = new File("Productos.dat");

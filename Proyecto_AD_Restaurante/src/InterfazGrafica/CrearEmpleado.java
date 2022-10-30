@@ -49,11 +49,15 @@ public class CrearEmpleado extends JFrame {
             int telefono = Integer.parseInt(telefonoField.getText());
             String email = emailField.getText();
 
-            int id = datos.get(datos.size() - 1).getId() + 1;
-
             if (nombre.trim().equals("") || fecha.trim().equals("") || email.trim().equals("") || String.valueOf(telefono).length() != 9) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
+                int id;
+                if (datos.size() == 0) {
+                    id = 1;
+                } else {
+                    id = datos.get(datos.size() - 1).getId() + 1;
+                }
                 datos.add(new Empleado(id, nombre, salario, fecha, telefono, email));
 
                 File file = new File("Empleados.dat");

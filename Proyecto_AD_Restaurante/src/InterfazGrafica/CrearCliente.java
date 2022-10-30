@@ -30,7 +30,7 @@ public class CrearCliente extends JFrame {
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new VentanaEmpleados();
+                JFrame frame = new VentanaClientes();
                 frame.setSize(500, 300);
                 frame.setVisible(true);
                 dispose();
@@ -47,7 +47,12 @@ public class CrearCliente extends JFrame {
             if (nombre.trim().equals("") || email.trim().equals("") || String.valueOf(telefono).length() != 9) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
-                int id = datos.get(datos.size() - 1).getId() + 1;
+                int id;
+                if (datos.size() == 0) {
+                    id = 1;
+                } else {
+                    id = datos.get(datos.size() - 1).getId() + 1;
+                }
 
                 datos.add(new Cliente(id, nombre, telefono, email));
 
