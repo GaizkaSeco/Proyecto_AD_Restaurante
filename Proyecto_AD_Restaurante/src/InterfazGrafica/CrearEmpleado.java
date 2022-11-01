@@ -22,14 +22,17 @@ public class CrearEmpleado extends JFrame {
 
 
     public CrearEmpleado(List<Empleado> d) {
+        //añadimos la lista con los datos cargados y mostramos el panel de la interfaz
         this.datos = d;
         setContentPane(panelEmpleados);
+        //Listener del boton de añadir  que llama a la funcion de añadir el empleado
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirEmpleado();
             }
         });
+        //Listener del boton de atras  que llama a la ventana de los empleados
         atrasButon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,6 +44,7 @@ public class CrearEmpleado extends JFrame {
         });
     }
 
+    //Funcion de añadir al empleado
     public void anadirEmpleado() {
         try {
             String nombre = nombreField.getText();
@@ -49,10 +53,12 @@ public class CrearEmpleado extends JFrame {
             int telefono = Integer.parseInt(telefonoField.getText());
             String email = emailField.getText();
 
+            //Se comprueba que no tengamos datos vacios
             if (nombre.trim().equals("") || fecha.trim().equals("") || email.trim().equals("") || String.valueOf(telefono).length() != 9) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
                 int id;
+                //Se comprueba si hay datos en el array o no, ya que si el dat esta vacio podria dar problemas
                 if (datos.size() == 0) {
                     id = 1;
                 } else {
@@ -60,14 +66,17 @@ public class CrearEmpleado extends JFrame {
                 }
                 datos.add(new Empleado(id, nombre, salario, fecha, telefono, email));
 
+                //Se crea flujos de entrada
                 File file = new File("Empleados.dat");
                 FileOutputStream fileo = new FileOutputStream(file);
                 ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
+                //Escribimos los objetos producto
                 for (Empleado dato : datos) {
                     fileobj.writeObject(dato);
                 }
 
+                //Mostramos mensage de que se ha creado correctamente y volvemos a la venta de los empleados
                 JOptionPane.showMessageDialog(null, "El empleado se ha añadido corectamente.");
 
                 fileobj.close();

@@ -31,32 +31,38 @@ public class MenuGenerado extends JFrame {
     private List<Plato> datos = new ArrayList<Plato>();
 
     public MenuGenerado() {
+        //Visualizamos el panel de la interfaz grafica
         setContentPane(panelGenerado);
         generarMenu();
+        //Listener del boton de guardar el menu
         guardarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Export los datos del menu generado a XML con DOM
                 try {
+                    //creamos el documento con DOM
                     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder = factory.newDocumentBuilder();
                     DOMImplementation implementation = builder.getDOMImplementation();
                     Document document = implementation.createDocument(null, "MenuAleatorio", null);
                     document.setXmlVersion("1.0");
 
+                    //Creamos cada elemento con la funcion de crearElemento
                     for (int i = 0; i < menu.size(); i++) {
                         Element raiz = document.createElement("plato");
                         document.getDocumentElement().appendChild(raiz);
                         crearElemento("id", String.valueOf(menu.get(i).getId()), raiz, document);
                         crearElemento("plato", menu.get(i).getNombre(), raiz, document);
-                        crearElemento("descripcion",menu.get(i).getDescripcion(), raiz, document);
-                        crearElemento("categoria",String.valueOf(menu.get(i).getCategoria()), raiz, document);
+                        crearElemento("descripcion", menu.get(i).getDescripcion(), raiz, document);
+                        crearElemento("categoria", String.valueOf(menu.get(i).getCategoria()), raiz, document);
                     }
 
+                    //Creamos el documento XML con la informacion que tenemos
                     Source source = new DOMSource(document);
                     Result result = new StreamResult(new java.io.File("MenuAleatorio.xml"));
                     Transformer transformer = TransformerFactory.newInstance().newTransformer();
                     transformer.transform(source, result);
-                    Result console= new StreamResult(System.out);
+                    Result console = new StreamResult(System.out);
                     transformer.transform(source, console);
 
                     JOptionPane.showMessageDialog(null, "Se ha creado el XML con en menu.");
@@ -69,6 +75,7 @@ public class MenuGenerado extends JFrame {
                 }
             }
         });
+        //Listener del boton de atras con el que se vuelve a la venatana principal
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,7 +87,9 @@ public class MenuGenerado extends JFrame {
         });
     }
 
+    //Funcion que genera un menu aleatorio con todos los platos que hay en el restautante
     public void generarMenu() {
+        //Seleccionamos los patos por su categoia si es primero, segundo o postre
         Random r = new Random();
         cargarDatos();
         if (datos.size() != 0) {
@@ -97,6 +106,7 @@ public class MenuGenerado extends JFrame {
                 }
             }
 
+            //Elegimos uno de cada categoria
             int p = primeros.size();
             int s = segundos.size();
             int po = postres.size();
@@ -125,6 +135,7 @@ public class MenuGenerado extends JFrame {
                 menu.add(postres.get(r.nextInt(0, po)));
             }
 
+            //Los mostramos en los TextField
             primeroField.setText(menu.get(0).getNombre());
             segundoField.setText(menu.get(1).getNombre());
             postreField.setText(menu.get(2).getNombre());
@@ -133,13 +144,17 @@ public class MenuGenerado extends JFrame {
         }
     }
 
+    //funcion para cargar en un array todos los objetos almacenados en el .DAT
     public void cargarDatos() {
         try {
+            //creamos el flujo de salida
             File file = new File("Platos.dat");
             FileInputStream filein = new FileInputStream(file);
             ObjectInputStream fileobj = new ObjectInputStream(filein);
 
+            //Limpiamos el array por si acaso
             datos.clear();
+            //añadimos los objetos que hay en el .DAT al array uno a uno
             Plato plato;
             while ((plato = (Plato) fileobj.readObject()) != null) {
                 datos.add(plato);
@@ -152,7 +167,8 @@ public class MenuGenerado extends JFrame {
         }
     }
 
-    static void crearElemento(String datoPlato, String valor, Element raiz, Document document){
+    //Funcion para crear un elemento
+    static void crearElemento(String datoPlato, String valor, Element raiz, Document document) {
         Element elem = document.createElement(datoPlato);
         Text text = document.createTextNode(valor);
         raiz.appendChild(elem);

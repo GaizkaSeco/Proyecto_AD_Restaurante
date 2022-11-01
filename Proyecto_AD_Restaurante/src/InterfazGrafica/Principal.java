@@ -18,8 +18,11 @@ public class Principal extends JFrame {
     private JButton BotonSalir;
     private JButton exportBoton;
 
+    //Ventana principal donde estaran los botones para ir a cada apartado de la aplicacion
     public Principal() {
+        //Mostramos el panel de la ventana principal
         setContentPane(panel1);
+        //Listener del boton de la ventana de productos donde se pueden gestionar todos los productos
         AlmacenBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -29,6 +32,7 @@ public class Principal extends JFrame {
                 dispose();
             }
         });
+        //Listener del boton de salir el cual termina la aplicacion
         BotonSalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,6 +40,7 @@ public class Principal extends JFrame {
                 System.exit(0);
             }
         });
+        //Listener del boton de la ventana de platos donde se pueden gestionar todos los platos
         PlatosBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,6 +50,7 @@ public class Principal extends JFrame {
                 dispose();
             }
         });
+        //Listener del boton de la ventana de empleados donde se pueden gestionar todos los empleados
         EmpleadosBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,6 +60,7 @@ public class Principal extends JFrame {
                 dispose();
             }
         });
+        //Listener del boton de la ventana de clientes donde se pueden gestionar todos los clientes
         ClientesBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,6 +70,7 @@ public class Principal extends JFrame {
                 dispose();
             }
         });
+        //Listener del boton de la ventana de generar un menu aleatorio donde se pueden ver un menu generado aleatoriomenre y se puede exportar a XML
         generarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,6 +80,7 @@ public class Principal extends JFrame {
                 dispose();
             }
         });
+        //Listener del boton que exporta todos los .DAT de la aplicacion a XML con XStream, llama a la funcion expotarTodo
         exportBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,6 +89,7 @@ public class Principal extends JFrame {
         });
     }
 
+    //Funcion para exportar uno a uno cada .DAT de la aplicacion a XML
     public void exportarTodo() {
         exportEmpleados();
         exportarClientes();
@@ -87,13 +97,16 @@ public class Principal extends JFrame {
         exportarPlatos();
     }
 
+    //Exporta el .DAT de los empleados a XML
     public void exportEmpleados() {
         ObjectInputStream fileobj = null;
         ListaEmpleados listaEmpleados = null;
         try {
+            //Se crea el flujo de salida
             File fichero = new File("Empleados.dat");
             FileInputStream filein = new FileInputStream(fichero);
             fileobj = new ObjectInputStream(filein);
+            //Se leen todos los datos almacenados y se añaden a la clase listaEmpleados
             Empleado empleado;
             listaEmpleados = new ListaEmpleados();
             while ((empleado = (Empleado) fileobj.readObject()) != null) {
@@ -110,8 +123,10 @@ public class Principal extends JFrame {
         }
         try {
             fileobj.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         try {
+            //Se usa XStream para exportar los datos
             XStream xstream = new XStream();
             xstream.alias("ListaEmpleados", ListaEmpleados.class);
             xstream.alias("DatosEmpleado", Empleado.class);
@@ -122,14 +137,18 @@ public class Principal extends JFrame {
             JOptionPane.showMessageDialog(null, "No se ha podido encontrar el fichero.");
         }
     }
+
+    //Exporta el .DAT de los clienets a XML
     public void exportarClientes() {
         ObjectInputStream fileobj = null;
         ListaClientes listaClientes = null;
         try {
+            //Se crea el flujo de salida
             File fichero = new File("Clientes.dat");
             FileInputStream filein = new FileInputStream(fichero);
             fileobj = new ObjectInputStream(filein);
             Cliente cliente;
+            //Se leen todos los datos almacenados y se añaden a la clase listaClientes
             listaClientes = new ListaClientes();
             while ((cliente = (Cliente) fileobj.readObject()) != null) {
                 listaClientes.add(cliente);
@@ -145,8 +164,10 @@ public class Principal extends JFrame {
         }
         try {
             fileobj.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         try {
+            //Se usa XStream para exportar los datos
             XStream xstream = new XStream();
             xstream.alias("ListaClientes", ListaClientes.class);
             xstream.alias("DatosCliente", Cliente.class);
@@ -157,15 +178,19 @@ public class Principal extends JFrame {
             JOptionPane.showMessageDialog(null, "No se ha podido encontrar el fichero.");
         }
     }
+
+    //Exporta el .DAT de los productos a XML
     public void exportarProductos() {
         ObjectInputStream fileobj = null;
         ListaProductos listaProductos = null;
         try {
+            //Se crea el flujo de salida
             File fichero = new File("Productos.dat");
             FileInputStream filein = new FileInputStream(fichero);
             fileobj = new ObjectInputStream(filein);
             System.out.println("Comienza el proceso de creación del fichero a XML ...");
             Producto producto;
+            //Se leen todos los datos almacenados y se añaden a la clase listaProductos
             listaProductos = new ListaProductos();
             while ((producto = (Producto) fileobj.readObject()) != null) {
                 listaProductos.add(producto);
@@ -181,8 +206,10 @@ public class Principal extends JFrame {
         }
         try {
             fileobj.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         try {
+            //Se usa XStream para exportar los datos
             XStream xstream = new XStream();
             xstream.alias("ListaProductos", ListaProductos.class);
             xstream.alias("DatosProducto", Producto.class);
@@ -193,14 +220,18 @@ public class Principal extends JFrame {
             JOptionPane.showMessageDialog(null, "No se ha podido encontrar el fichero.");
         }
     }
+
+    //Exporta el .DAT de los platos a XML
     public void exportarPlatos() {
         ObjectInputStream fileobj = null;
         ListaPlatos listaPlatos = null;
         try {
+            //Se crea el flujo de salida
             File fichero = new File("Platos.dat");
             FileInputStream filein = new FileInputStream(fichero);
             fileobj = new ObjectInputStream(filein);
             Plato plato;
+            //Se leen todos los datos almacenados y se añaden a la clase listaPlatos
             listaPlatos = new ListaPlatos();
             while ((plato = (Plato) fileobj.readObject()) != null) {
                 listaPlatos.add(plato);
@@ -216,8 +247,10 @@ public class Principal extends JFrame {
         }
         try {
             fileobj.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         try {
+            //Se usa XStream para exportar los datos
             XStream xstream = new XStream();
             xstream.alias("ListaPlatos", ListaPlatos.class);
             xstream.alias("DatosPlato", Plato.class);

@@ -2,12 +2,14 @@ package Clases;
 
 import java.io.Serializable;
 
+//Clase cliente para crear los objetos cliente
 public class Cliente implements Serializable {
     int id;
     String nombre;
     int telefono;
     String email;
 
+    //Constructor
     public Cliente(int id, String nombre, int telefono, String email) {
         this.id = id;
         this.nombre = nombre;
@@ -15,6 +17,7 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
+    //Getters y setters
     public int getId() {
         return id;
     }

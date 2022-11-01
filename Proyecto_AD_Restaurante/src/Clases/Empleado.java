@@ -2,6 +2,8 @@ package Clases;
 
 import java.io.Serializable;
 
+//Clase empleado para crear los objetos empleado
+
 public class Empleado implements Serializable {
     int id;
     String nombre;
@@ -9,6 +11,8 @@ public class Empleado implements Serializable {
     String fechaCon;
     int telefono;
     String email;
+
+    //Constructores
 
     public Empleado(int id, String nombre, Double salario, String fechaCon, int telefono, String email) {
         this.id = id;
@@ -21,6 +25,8 @@ public class Empleado implements Serializable {
 
     public Empleado() {
     }
+
+    //Getters y setters
 
     public int getId() {
         return id;

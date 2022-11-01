@@ -19,7 +19,9 @@ public class EditarEmpleado extends JFrame {
     private JPanel PanelEditarEmpleados;
 
     public EditarEmpleado(int id, List<Empleado> datos) {
+        //Mostramos el panel de la interfaz
         setContentPane(PanelEditarEmpleados);
+        //Cargamos los datos del empleado que se va ha editar el los textField
         for (Empleado dato : datos) {
             if (dato.getId() == id) {
                 nombreField.setText(dato.getNombre());
@@ -29,6 +31,7 @@ public class EditarEmpleado extends JFrame {
                 emailField.setText(dato.getEmail());
             }
         }
+        //Listener de editar que se encarga de editar el empleado
         editarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,6 +42,7 @@ public class EditarEmpleado extends JFrame {
                     int telefono = Integer.parseInt(telefonoField.getText());
                     String email = emailField.getText();
 
+                    //Se comprueba que no hay datos vacion
                     if (nombre.trim().equals("") || fecha.trim().equals("") || email.trim().equals("") || String.valueOf(telefono).length() != 9){
                         JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
                     } else{
@@ -52,16 +56,19 @@ public class EditarEmpleado extends JFrame {
                             }
                         }
 
+                        //Se crea el flujo de entrada
                         File file = new File("Empleados.dat");
                         FileOutputStream fileo = new FileOutputStream(file);
                         ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
+                        //Se escribe cada objeto en el dat
                         for (Empleado dato : datos) {
                             fileobj.writeObject(dato);
                         }
 
                         fileobj.close();
 
+                        //Se muestra el mensage y se abre la ventana de los empleado
                         JOptionPane.showMessageDialog(null, "Se ha editado corectamente.");
 
                         JFrame frame = new VentanaEmpleados();
@@ -78,6 +85,7 @@ public class EditarEmpleado extends JFrame {
                 }
             }
         });
+        //Listener del boton de atras que nos devuelve a la ventana de los empleado
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

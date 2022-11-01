@@ -18,13 +18,16 @@ public class EditarProducto extends JFrame {
     private JPanel panelEditarProducto;
 
     public EditarProducto(List<Producto> datos, int id) {
+        //Mostramos el panel de la interfaz
         setContentPane(panelEditarProducto);
+        //Cargamos los datos del producto que se va ha editar el los textField
         for (Producto dato : datos) {
             if (dato.getId() == id) {
                 productoField.setText(dato.getProducto());
                 cantidadField.setText(String.valueOf(dato.getCantidad()));
             }
         }
+        //Listener de editar que se encarga de editar el producto
         editarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,6 +35,7 @@ public class EditarProducto extends JFrame {
                     String producto = productoField.getText();
                     int cantidad = Integer.parseInt(cantidadField.getText());
 
+                    //Se comprueba que no hay datos vacion
                     if (producto.trim().equals("")) {
                         JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
                     } else {
@@ -42,16 +46,19 @@ public class EditarProducto extends JFrame {
                             }
                         }
 
+                        //Se crea el flujo de entrada
                         File file = new File("Producto.dat");
                         FileOutputStream fileo = new FileOutputStream(file);
                         ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
+                        //Se escribe cada objeto en el dat
                         for (Producto dato : datos) {
                             fileobj.writeObject(dato);
                         }
 
                         fileobj.close();
 
+                        //Se muestra el mensage y se abre la ventana de los productos
                         JOptionPane.showMessageDialog(null, "Se ha editado corectamente.");
 
                         JFrame frame = new VentanaAlmacen();
@@ -68,6 +75,7 @@ public class EditarProducto extends JFrame {
                 }
             }
         });
+        //Listener del boton de atras que nos devuelve a la ventana de los productos
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

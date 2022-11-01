@@ -2,6 +2,7 @@ package Clases;
 
 import java.io.Serializable;
 
+//Clase plato para crear los objetos plato
 public class Plato implements Serializable {
     int id;
     String nombre;
@@ -9,6 +10,7 @@ public class Plato implements Serializable {
     double precio;
     int categoria;
 
+    //Contructores
     public Plato(int id, String nombre, String descripcion, double precio, int categoria) {
         this.id = id;
         this.nombre = nombre;
@@ -24,6 +26,7 @@ public class Plato implements Serializable {
         this.nombre = nombre;
     }
 
+    //Getters y setters
     public int getId() {
         return id;
     }

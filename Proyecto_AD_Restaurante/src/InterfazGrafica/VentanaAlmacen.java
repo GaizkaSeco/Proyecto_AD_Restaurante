@@ -23,14 +23,18 @@ public class VentanaAlmacen extends JFrame {
     public List<Producto> datos = new ArrayList<Producto>();
 
     public VentanaAlmacen() {
+        //Mostramos el panel de la interfaz grafica
         setContentPane(panelAlmacen);
+        //lamamos a la funcion para cargar los datos en la tabla
         modificarTabla();
+        //Listener del boton de volver a cargar los datos por si es necesatio volver a actulalizar la tabla
         reloadBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 modificarTabla();
             }
         });
+        //Listener del boton de añadir producto que carga la venata de añadir producto
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,17 +45,20 @@ public class VentanaAlmacen extends JFrame {
                 dispose();
             }
         });
+        //Listener del boton de aliminar el cual le manda a una funcion el id del elemento seleccionado en tabla el la cual se quiere eliminar
         eliminarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (table1.getSelectedRow() == -1) {
                     JOptionPane.showMessageDialog(null, "Para eliminar debes seleccionar en la tabla.");
                 } else {
+                    //Obtencion del id del objeto seleccionaod en la tabla
                     int id = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                     eliminarProducto(id);
                 }
             }
         });
+        //Listener del boton de de editar el cual manda el id y los datos cargados a la ventana de editar
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,6 +74,7 @@ public class VentanaAlmacen extends JFrame {
                 }
             }
         });
+        //listener del boton de atras el cual vuelve a la ventana principal
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,12 +86,15 @@ public class VentanaAlmacen extends JFrame {
         });
     }
 
+    //carga los datos del .DAT a un array para trabajaro mejor cone ellos
     public void cargarDatos() {
         try {
+            //se crea el flujo de salida
             File file = new File("Productos.dat");
             FileInputStream filein = new FileInputStream(file);
             ObjectInputStream fileobj = new ObjectInputStream(filein);
 
+            //cragamos los datos al array
             datos.clear();
             Producto producto;
             while ((producto = (Producto) fileobj.readObject()) != null) {
@@ -99,6 +110,7 @@ public class VentanaAlmacen extends JFrame {
 
     public void modificarTabla() {
         cargarDatos();
+        //Nombre de las columnas y cargamos los datos al array que se le van a enviar al la tabla para cargar los datos
         String[] nombreColumnas = {"id", "Nombre", "Cantidad"};
         int cantidad = datos.size();
         String[][] d = new String[cantidad][3];
@@ -107,11 +119,14 @@ public class VentanaAlmacen extends JFrame {
             d[i][1] = String.valueOf(datos.get(i).getProducto());
             d[i][2] = String.valueOf(datos.get(i).getCantidad());
         }
+        //se carga el modelo de la tabla
         table1.setModel(new DefaultTableModel(d, nombreColumnas));
     }
 
+    //Funcion para eliminar el producto seleccionado
     public void eliminarProducto(int id) {
         cargarDatos();
+        //Se recorre el array para buscar el id seleccionado y se eliminar
         List<Producto> nuevos = new ArrayList<>();
         for (Producto dato : datos) {
             if (dato.getId() != id) {
@@ -120,6 +135,7 @@ public class VentanaAlmacen extends JFrame {
         }
 
         try {
+            //se crea el flujo de entrada y se cargar los datos al .DAT
             ObjectOutputStream fileobj = new ObjectOutputStream(new FileOutputStream("Productos.dat"));
 
             for (Producto dato : nuevos) {
@@ -132,6 +148,7 @@ public class VentanaAlmacen extends JFrame {
             System.out.println("");
         }
 
+        //Se llama a la funcion para actualzar la tabla
         modificarTabla();
     }
 }

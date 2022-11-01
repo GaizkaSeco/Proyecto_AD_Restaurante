@@ -21,17 +21,21 @@ public class CrearPlato extends JFrame {
     public List<Plato> datos = new ArrayList<Plato>();
 
     public CrearPlato(List<Plato> d) {
+        //añadimos la lista con los datos cargados y mostramos el panel de la interfaz
         this.datos = d;
+        //Añadimos las opciones que queremos al combobox
         comboBox1.addItem("Primero");
         comboBox1.addItem("Segundo");
         comboBox1.addItem("Tercero");
         setContentPane(panelAnadirPlato);
+        //Listener del boton de añadir  que llama a la funcion de añadir el plato
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirPlato();
             }
         });
+        //Listener del boton de atras  que llama a la ventana de los clientes
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,6 +47,7 @@ public class CrearPlato extends JFrame {
         });
     }
 
+    //Funcion de añadir al plato
     public void anadirPlato() {
         try {
             String plato = platoField.getText();
@@ -50,10 +55,12 @@ public class CrearPlato extends JFrame {
             int precio = Integer.parseInt(costeField.getText());
             int categoria = comboBox1.getSelectedIndex() + 1;
 
+            //Se comprueba que no tengamos datos vacios
             if (plato.trim().equals("") || descripcion.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             } else {
                 int id;
+                //Se comprueba si hay datos en el array o no, ya que si el dat esta vacio podria dar problemas
                 if (datos.size() == 0) {
                     id = 1;
                 } else {
@@ -61,14 +68,17 @@ public class CrearPlato extends JFrame {
                 }
                 datos.add(new Plato(id, plato, descripcion, precio, categoria));
 
+                //Se crea flujos de entrada
                 File file = new File("Platos.dat");
                 FileOutputStream fileo = new FileOutputStream(file);
                 ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
+                //Escribimos los objetos producto
                 for (Plato dato : datos) {
                     fileobj.writeObject(dato);
                 }
 
+                //Mostramos mensage de que se ha creado correctamente y volvemos a la ventana de los platos
                 JOptionPane.showMessageDialog(null, "El plato se ha añadido corectamente.");
 
                 fileobj.close();

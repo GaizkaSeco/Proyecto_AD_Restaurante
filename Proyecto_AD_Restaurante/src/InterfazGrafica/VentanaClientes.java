@@ -21,14 +21,18 @@ public class VentanaClientes extends JFrame {
     public List<Cliente> datos = new ArrayList<Cliente>();
 
     public VentanaClientes() {
+        //Mostramos el panel de la interfaz grafica
         setContentPane(panelClientes);
+        //llamamos a la funcion para cargar los datos en la tabla
         modificarTabla();
+        //Listener del boton de volver a cargar los datos por si es necesatio volver a actulalizar la tabla
         reloadBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 modificarTabla();
             }
         });
+        //Listener del boton de añadir cliente que carga la ventana de añadir cliente
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,6 +43,7 @@ public class VentanaClientes extends JFrame {
                 dispose();
             }
         });
+        //Listener del boton de aliminar el cual le manda a una funcion el id del elemento seleccionado en la tabla el cual se quiere eliminar
         eliminarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,6 +55,7 @@ public class VentanaClientes extends JFrame {
                 }
             }
         });
+        //Listener del boton de de editar el cual manda el id y los datos cargados a la ventana de editar
         editarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,6 +71,7 @@ public class VentanaClientes extends JFrame {
                 }
             }
         });
+        //listener del boton de atras el cual vuelve a la ventana principal
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,12 +83,15 @@ public class VentanaClientes extends JFrame {
         });
     }
 
+    //carga los datos del .DAT a un array para trabajaro mejor cone ellos
     public void cargarDatos() {
         try {
+            //se crea el flujo de salida
             File file = new File("Clientes.dat");
             FileInputStream filein = new FileInputStream(file);
             ObjectInputStream fileobj = new ObjectInputStream(filein);
 
+            //cargamos los datos al array
             datos.clear();
             Cliente cliente;
             while ((cliente = (Cliente) fileobj.readObject()) != null) {
@@ -99,6 +109,7 @@ public class VentanaClientes extends JFrame {
 
     public void modificarTabla() {
         cargarDatos();
+        //Nombre de las columnas y cargamos los datos al array que se le van a enviar al la tabla para cargar los datos
         String[] nombreColumnas = {"id", "Nombre", "Telefono", "Email"};
         int cantidad = datos.size();
         String[][] d = new String[cantidad][4];
@@ -108,11 +119,14 @@ public class VentanaClientes extends JFrame {
             d[i][2] = String.valueOf(datos.get(i).getTelefono());
             d[i][3] = String.valueOf(datos.get(i).getEmail());
         }
+        //se carga el modelo de la tabla
         table1.setModel(new DefaultTableModel(d, nombreColumnas));
     }
 
+    //Funcion para eliminar el cliente seleccionado
     public void eliminarCliente(int id) {
         cargarDatos();
+        //Se recorre el array para buscar el id seleccionado y se eliminar
         List<Cliente> nuevos = new ArrayList<>();
         for (Cliente dato : datos) {
             if (dato.getId() != id) {
@@ -121,6 +135,7 @@ public class VentanaClientes extends JFrame {
         }
 
         try {
+            //se crea el flujo de entrada y se cargar los datos al .DAT
             ObjectOutputStream fileobj = new ObjectOutputStream(new FileOutputStream("Clientes.dat"));
 
             for (Cliente dato : nuevos) {
@@ -133,6 +148,7 @@ public class VentanaClientes extends JFrame {
             System.out.println("");
         }
 
+        //Se llama a la funcion para actualzar la tabla
         modificarTabla();
     }
 }

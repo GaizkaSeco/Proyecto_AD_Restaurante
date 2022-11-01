@@ -20,8 +20,11 @@ public class VentanaPlatos extends JFrame{
     List<Plato> datos = new ArrayList<Plato>();
 
     public VentanaPlatos() {
+        //llamamos a la funcion para cargar los datos en la tabla
         modificarTabla();
+        //Mostramos el panel de la interfaz grafica
         setContentPane(PanelPlatos);
+        //Listener del boton de añadir platos que carga la ventana de añadir plato
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,6 +35,7 @@ public class VentanaPlatos extends JFrame{
                 dispose();
             }
         });
+        //Listener del boton de aliminar el cual le manda a una funcion el id del elemento seleccionado en la tabla el cual se quiere eliminar
         eliminarBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,6 +47,7 @@ public class VentanaPlatos extends JFrame{
                 }
             }
         });
+        //Listener del boton de atras el cual vuelve a la ventana principal
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,12 +59,15 @@ public class VentanaPlatos extends JFrame{
         });
     }
 
+    //carga los datos del .DAT a un array para trabajaro mejor cone ellos
     public void cargarDatos() {
         try {
+            //se crea el flujo de salida
             File file = new File("Platos.dat");
             FileInputStream filein = new FileInputStream(file);
             ObjectInputStream fileobj = new ObjectInputStream(filein);
 
+            //cargamos los datos al array
             datos.clear();
             Plato plato;
             while ((plato = (Plato) fileobj.readObject()) != null) {
@@ -75,6 +83,7 @@ public class VentanaPlatos extends JFrame{
 
     public void modificarTabla() {
         cargarDatos();
+        //Nombre de las columnas y cargamos los datos al array que se le van a enviar al la tabla para cargar los datos
         String[] nombreColumnas = {"id", "Plato", "Descripcion", "Coste", "Categoria"};
         int cantidad = datos.size();
         String[][] d = new String[cantidad][6];
@@ -85,11 +94,13 @@ public class VentanaPlatos extends JFrame{
             d[i][3] = String.valueOf(datos.get(i).getPrecio());
             d[i][4] = String.valueOf(datos.get(i).getCategoria());
         }
+        //se carga el modelo de la tabla
         table1.setModel(new DefaultTableModel(d, nombreColumnas));
     }
 
     public void eliminarPlato(int id) {
         cargarDatos();
+        //Se recorre el array para buscar el id seleccionado y se eliminar
         List<Plato> nuevos = new ArrayList<>();
         for (Plato dato : datos) {
             if (dato.getId() != id) {
@@ -99,6 +110,7 @@ public class VentanaPlatos extends JFrame{
         }
 
         try {
+            //se crea el flujo de entrada y se cargar los datos al .DAT
             ObjectOutputStream fileobj = new ObjectOutputStream(new FileOutputStream("Platos.dat"));
 
             for (Plato dato : nuevos) {
@@ -112,6 +124,7 @@ public class VentanaPlatos extends JFrame{
             System.out.println("");
         }
 
+        //Se llama a la funcion para actualzar la tabla
         modificarTabla();
     }
 }

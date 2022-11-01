@@ -1,7 +1,5 @@
 package InterfazGrafica;
 
-import Clases.Cliente;
-import Clases.Empleado;
 import Clases.Producto;
 
 import javax.swing.*;
@@ -20,14 +18,17 @@ public class AnadirProducto extends JFrame {
     List<Producto> datos = new ArrayList<Producto>();
 
     public AnadirProducto(List<Producto> d) {
+        //añadimos la lista con los datos cargados y mostramos el panel de la interfaz
         this.datos = d;
         setContentPane(panelAnadirProducto);
+        //Listener del boton de añadir  que llama a la funcion de añadir el producto
         anadirBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirProducto();
             }
         });
+        //Listener del boton de atras que llama a la ventana de almacen
         atrasBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,15 +40,18 @@ public class AnadirProducto extends JFrame {
         });
     }
 
+    //Funcion de añadir el producto
     public void anadirProducto() {
         try {
             String producto = producotField.getText();
             int cantidad = Integer.parseInt(cantidadField.getText());
 
+            //Se comprueba que no tengamos datos vacios
             if (producto.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Compruebe que los datos son correctos");
             }else {
                 int id;
+                //Se comprueba si hay datos en el array o no, ya que si el dat esta vacio podria dar problemas
                 if (datos.size() == 0) {
                     id = 1;
                 } else {
@@ -55,14 +59,17 @@ public class AnadirProducto extends JFrame {
                 }
                 datos.add(new Producto(id, producto, cantidad));
 
+                //Se crea flujos de entrada
                 File file = new File("Productos.dat");
                 FileOutputStream fileo = new FileOutputStream(file);
                 ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
+                //Escribimos los objetos producto
                 for (Producto dato : datos) {
                     fileobj.writeObject(dato);
                 }
 
+                //Mostramos mensage de que se ha creado correctamente y volvemos a la venta de almacen
                 JOptionPane.showMessageDialog(null, "El producto se ha añadido corectamente.");
 
                 fileobj.close();

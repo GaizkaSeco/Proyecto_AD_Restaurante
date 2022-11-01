@@ -6,6 +6,7 @@ import InterfazGrafica.Principal;
 import javax.swing.*;
 
 public class Main {
+    //Programa para iniciar la interfaz grafica
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

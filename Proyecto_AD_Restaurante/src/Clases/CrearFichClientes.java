@@ -2,17 +2,22 @@ package Clases;
 
 import java.io.*;
 
+//Clase para crear el archivo .dat con datos basicos
+
 public class CrearFichClientes {
     public static void main(String[] args) {
         File file = new File("Clientes.dat");
         try {
+            //Creamos los flujos
             FileOutputStream fileo = new FileOutputStream(file);
             ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
 
-            String nombres[] = {"Juan","Jose","Mario","Maria","Aitor","Hector","Laura","Cristian","David","Maite"};
+            //Creamos los arrray con los datos que queremos insertar
+            String nombres[] = {"Juan", "Jose", "Mario", "Maria", "Aitor", "Hector", "Laura", "Cristian", "David", "Maite"};
             int telefono[] = {526987431, 659478213, 654987321, 632154879, 614239875, 664335980, 605897422, 653020489, 632101548, 678954123};
-            String email[] = {"juan@gmail.com","jose@gmail.com","mario@gmail.com","maria@gmail.com","aitor@gmail.com","hector@gmail.com","laura@gmail.com","cristian@gmail.com","david@gmail.com","maite@gmail.com"};
+            String email[] = {"juan@gmail.com", "jose@gmail.com", "mario@gmail.com", "maria@gmail.com", "aitor@gmail.com", "hector@gmail.com", "laura@gmail.com", "cristian@gmail.com", "david@gmail.com", "maite@gmail.com"};
 
+            //Insertamos los datos creando el objeto
             for (int i = 0; i < nombres.length; i++) {
                 Cliente cliente = new Cliente(i, nombres[i], telefono[i], email[i]);
                 fileobj.writeObject(cliente);
