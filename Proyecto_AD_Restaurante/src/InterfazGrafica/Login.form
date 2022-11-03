@@ -16,14 +16,6 @@
           <text value="LOGIN"/>
         </properties>
       </component>
-      <component id="4adce" class="javax.swing.JTextField" binding="contrasenaField">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
       <component id="fdc7f" class="javax.swing.JTextField" binding="usuarioField">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -55,6 +47,14 @@
         <properties>
           <text value="Contraseña:"/>
         </properties>
+      </component>
+      <component id="bfc04" class="javax.swing.JPasswordField" binding="contrasenaField">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
       </component>
     </children>
   </grid>
